@@ -76,7 +76,7 @@ gestion-ingreso/
 | 3 | Verificar que las API routes funcionan con Supabase | `app/api/proyectos/route.ts` | ✅ |
 | 4 | Agregar validación con zod en todos los endpoints | `app/api/` | ✅ |
 | 5 | Configurar Row Level Security (RLS) en Supabase | Supabase Dashboard | ✅ |
-| 6 | Probar endpoints con curl o Thunder Client | Terminal | ⬜ |
+| 6 | Probar endpoints con curl o Thunder Client | Terminal | ✅ |
 
 **Notas:**
 - El esquema SQL ya está creado en `docs/schema.sql`
