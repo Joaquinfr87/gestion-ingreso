@@ -10,7 +10,7 @@
 [![Supabase](https://img.shields.io/badge/Supabase-Database-3ecf8e?logo=supabase)](https://supabase.com/)
 [![Vercel](https://img.shields.io/badge/Vercel-Deploy-000?logo=vercel)](https://vercel.com/)
 
-**🚀 [Deploy en Vercel](https://gestion-ingreso.vercel.app/)**
+**🚀 [Deploy en Vercel](https://gestion-ingreso-brown.vercel.app/login)**
 
 </div>
 
@@ -18,11 +18,11 @@
 
 ## 👥 Integrantes
 
-| Integrante | Rol | GitHub |
-|------------|-----|--------|
+| Integrante                | Rol                          | GitHub                                         |
+| ------------------------- | ---------------------------- | ---------------------------------------------- |
 | **Joaquin Felipez Rojas** | 🔧 Backend & Infraestructura | [@Joaquinfr87](https://github.com/Joaquinfr87) |
-| **Nicolas Reguerin** | 🎨 Frontend & UI/UX | - |
-| **David Cruz** | ⚡ Fullstack & Coordinador | - |
+| **Nicolas Reguerin**      | 🎨 Frontend & UI/UX          | -                                              |
+| **David Cruz**            | ⚡ Fullstack & Coordinador   | -                                              |
 
 ---
 
@@ -32,23 +32,23 @@ Sistema web diseñado para gestionar proyectos de una constructora, permitiendo 
 
 ### ✨ Funcionalidades
 
-| Función | Descripción |
-|---------|-------------|
-| 🔐 **Autenticación** | Registro y login de usuarios con Supabase Auth |
-| 📝 **Crear Proyectos** | Registrar nuevos proyectos con nombre, descripción, fecha y estado |
-| 📖 **Listar Proyectos** | Visualizar todos los proyectos en una tabla |
-| ✏️ **Editar Proyectos** | Modificar datos de un proyecto existente |
-| 🗑️ **Eliminar Proyectos** | Borrar proyectos del sistema |
-| 🔒 **RLS** | Cada usuario solo ve sus propios proyectos |
+| Función                   | Descripción                                                        |
+| ------------------------- | ------------------------------------------------------------------ |
+| 🔐 **Autenticación**      | Registro y login de usuarios con Supabase Auth                     |
+| 📝 **Crear Proyectos**    | Registrar nuevos proyectos con nombre, descripción, fecha y estado |
+| 📖 **Listar Proyectos**   | Visualizar todos los proyectos en una tabla                        |
+| ✏️ **Editar Proyectos**   | Modificar datos de un proyecto existente                           |
+| 🗑️ **Eliminar Proyectos** | Borrar proyectos del sistema                                       |
+| 🔒 **RLS**                | Cada usuario solo ve sus propios proyectos                         |
 
 ### 📊 Estados de Proyecto
 
-| Estado | Descripción |
-|--------|-------------|
-| 🟡 `Pendiente` | Proyecto registrado, no iniciado |
-| 🔵 `En Progreso` | Proyecto en ejecución |
-| 🟢 `Completado` | Proyecto finalizado |
-| 🔴 `Cancelado` | Proyecto cancelado |
+| Estado           | Descripción                      |
+| ---------------- | -------------------------------- |
+| 🟡 `Pendiente`   | Proyecto registrado, no iniciado |
+| 🔵 `En Progreso` | Proyecto en ejecución            |
+| 🟢 `Completado`  | Proyecto finalizado              |
+| 🔴 `Cancelado`   | Proyecto cancelado               |
 
 ---
 
@@ -155,12 +155,12 @@ CREATE TABLE proyectos (
 
 ### 🔒 Seguridad (RLS)
 
-| Política | Acción |
-|----------|--------|
-| `Users can view own projects` | Cada usuario solo ve sus proyectos |
+| Política                        | Acción                             |
+| ------------------------------- | ---------------------------------- |
+| `Users can view own projects`   | Cada usuario solo ve sus proyectos |
 | `Users can insert own projects` | Solo puede crear proyectos propios |
-| `Users can update own projects` | Solo puede editar sus proyectos |
-| `Users can delete own projects` | Solo puede eliminar sus proyectos |
+| `Users can update own projects` | Solo puede editar sus proyectos    |
+| `Users can delete own projects` | Solo puede eliminar sus proyectos  |
 
 ---
 
@@ -168,21 +168,21 @@ CREATE TABLE proyectos (
 
 ### 🔐 Autenticación
 
-| Método | Ruta | Descripción |
-|--------|------|-------------|
-| `POST` | `/api/auth/signup` | Crear nueva cuenta |
-| `POST` | `/api/auth/login` | Iniciar sesión |
-| `POST` | `/api/auth/logout` | Cerrar sesión |
-| `GET` | `/api/auth/me` | Obtener usuario actual |
+| Método | Ruta               | Descripción            |
+| ------ | ------------------ | ---------------------- |
+| `POST` | `/api/auth/signup` | Crear nueva cuenta     |
+| `POST` | `/api/auth/login`  | Iniciar sesión         |
+| `POST` | `/api/auth/logout` | Cerrar sesión          |
+| `GET`  | `/api/auth/me`     | Obtener usuario actual |
 
 ### 📋 Proyectos
 
-| Método | Ruta | Descripción |
-|--------|------|-------------|
-| `GET` | `/api/proyectos` | Listar todos los proyectos |
-| `POST` | `/api/proyectos` | Crear un proyecto |
-| `PUT` | `/api/proyectos/:id` | Actualizar un proyecto |
-| `DELETE` | `/api/proyectos/:id` | Eliminar un proyecto |
+| Método   | Ruta                 | Descripción                |
+| -------- | -------------------- | -------------------------- |
+| `GET`    | `/api/proyectos`     | Listar todos los proyectos |
+| `POST`   | `/api/proyectos`     | Crear un proyecto          |
+| `PUT`    | `/api/proyectos/:id` | Actualizar un proyecto     |
+| `DELETE` | `/api/proyectos/:id` | Eliminar un proyecto       |
 
 ---
 
@@ -231,15 +231,15 @@ export async function createClient() {
     {
       cookies: {
         getAll() {
-          return cookieStore.getAll();  // Lee las cookies del usuario
+          return cookieStore.getAll(); // Lee las cookies del usuario
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)  // Guarda las cookies
+          cookiesToSet.forEach(
+            ({ name, value, options }) => cookieStore.set(name, value, options), // Guarda las cookies
           );
         },
       },
-    }
+    },
   );
 }
 ```
@@ -262,7 +262,10 @@ export async function GET() {
   const supabase = await createClient();
 
   // 1. Verificar que el usuario esté autenticado
-  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
   if (authError || !user) {
     return NextResponse.json({ error: "No autenticado" }, { status: 401 });
   }
@@ -271,8 +274,8 @@ export async function GET() {
   const { data, error } = await supabase
     .from("proyectos")
     .select("*")
-    .eq("user_id", user.id)  // Solo proyectos del usuario actual
-    .order("created_at", { ascending: false });  // Más recientes primero
+    .eq("user_id", user.id) // Solo proyectos del usuario actual
+    .order("created_at", { ascending: false }); // Más recientes primero
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -285,7 +288,10 @@ export async function POST(request: Request) {
   const supabase = await createClient();
 
   // 1. Verificar autenticación
-  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
   if (authError || !user) {
     return NextResponse.json({ error: "No autenticado" }, { status: 401 });
   }
@@ -296,14 +302,14 @@ export async function POST(request: Request) {
   if (!parsed.success) {
     return NextResponse.json(
       { error: "Datos inválidos", details: parsed.error.flatten() },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   // 3. Insertar en la base de datos
   const { data, error } = await supabase
     .from("proyectos")
-    .insert({ ...parsed.data, user_id: user.id })  // Agregar user_id automáticamente
+    .insert({ ...parsed.data, user_id: user.id }) // Agregar user_id automáticamente
     .select()
     .single();
 
@@ -335,22 +341,26 @@ export async function middleware(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll() { return request.cookies.getAll(); },
+        getAll() {
+          return request.cookies.getAll();
+        },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
+            request.cookies.set(name, value),
           );
           supabaseResponse = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, options),
           );
         },
       },
-    }
+    },
   );
 
   // Verificar si el usuario está autenticado
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   // Rutas de autenticación (login/register)
   const isAuthRoute =
@@ -646,33 +656,36 @@ pnpm dev
 
 ### 🌐 URLs de prueba
 
-| Entorno | URL |
-|---------|-----|
-| 🔧 Desarrollo | `http://localhost:3000` |
-| 🚀 Producción | [gestion-ingreso.vercel.app](https://gestion-ingreso.vercel.app/) |
+| Entorno       | URL                                                               |
+| ------------- | ----------------------------------------------------------------- |
+| 🔧 Desarrollo | `http://localhost:3000`                                           |
+| 🚀 Producción | [gestion-ingreso-brown.vercel.app](https://gestion-ingreso-brown.vercel.app/login) |
 
 ---
 
 ## 📸 Capturas de Pantalla
 
 ### 🔐 Login
+
 ![Login](docs/screenshots/login.png)
 
 ### 📋 Dashboard
+
 ![Dashboard](docs/screenshots/dashboard.png)
 
 ### ✏️ Formulario
+
 ![Formulario](docs/screenshots/formulario.png)
 
 ---
 
 ## 📄 Documentación adicional
 
-| Documento | Descripción |
-|-----------|-------------|
-| 📋 [TAREAS.md](docs/TAREAS.md) | Distribución de tareas del equipo |
-| 📖 [Manual de Usuario](docs/manual-usuario.md) | Guía de uso del sistema |
-| 🗄️ [Schema SQL](docs/schema.sql) | Esquema de base de datos |
+| Documento                                      | Descripción                       |
+| ---------------------------------------------- | --------------------------------- |
+| 📋 [TAREAS.md](docs/TAREAS.md)                 | Distribución de tareas del equipo |
+| 📖 [Manual de Usuario](docs/manual-usuario.md) | Guía de uso del sistema           |
+| 🗄️ [Schema SQL](docs/schema.sql)               | Esquema de base de datos          |
 
 ---
 
@@ -693,7 +706,7 @@ Proyecto académico - Universidad
 
 <div align="center">
 
-**Hecho con ❤️ por el equipo**
+**Hecho por el equipo**
 
 🏗️ Joaquin Felipez Rojas • 🎨 Nicolas Reguerin • ⚡ David Cruz
 
