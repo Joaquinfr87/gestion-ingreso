@@ -1,172 +1,115 @@
-# Sistema de Gestión de Ingreso
+# Sistema de Gestión de Ingreso - Dashboard Profesional 🚀
 
-## Descripción
+Sistema integral de gestión de proyectos para constructoras. Permite realizar operaciones CRUD completas y gestionar el ciclo de vida de los proyectos desde un panel de administración robusto, construido con tecnologías modernas para la mejor experiencia de usuario y desarrollador.
 
-Aplicación web para la gestión de proyectos de una constructora. Permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los proyectos registrados.
+---
 
-## Equipo
+## 🛠️ Stack Tecnológico
 
-- Integrante 1
-- Integrante 2
-- Integrante 3
+El proyecto está desarrollado utilizando un stack moderno, escalable y con tipado estricto:
 
-## Tecnologías Utilizadas
+### Frontend
+- **Framework:** [Next.js 16](https://nextjs.org/) (App Router)
+- **Lenguaje:** TypeScript 5
+- **Estilos:** Tailwind CSS v4 + Tailwind Merge + clsx
+- **Componentes de UI:** [Shadcn UI](https://ui.shadcn.com/) / Radix UI / Lucide React
+- **Manejo de Formularios:** React Hook Form + Zod (para validación estricta de esquemas)
+- **Notificaciones:** Sonner (Toast notifications)
+- **Animaciones:** `tw-animate-css`
 
-| Tecnología | Versión | Propósito |
-|------------|---------|-----------|
-| Next.js | 16.2.10 | Framework React |
-| TypeScript | 5.x | Tipado estático |
-| Tailwind CSS | 4.x | Estilos |
-| Supabase | 2.110.2 | Base de datos y backend |
+### Backend y Base de Datos
+- **BaaS:** [Supabase](https://supabase.com/) (PostgreSQL)
+- **Autenticación y Cliente:** `@supabase/ssr` / `@supabase/supabase-js`
+- **API:** Next.js API Routes (Rutas manejadas por App Router `/app/api/...`)
 
-## Requisitos Previos
+---
 
-- Node.js 18+
-- pnpm (o npm/yarn)
-- Cuenta en [Supabase](https://supabase.com)
+## 📂 Estructura del Proyecto
 
-## Instalación
+Seguimos los estándares del **App Router** de Next.js:
 
-### 1. Clonar el repositorio
-
-```bash
-git clone https://github.com/TU-USUARIO/gestion-ingreso.git
-cd gestion-ingreso
+```text
+gestion-ingreso/
+├── app/                  # Rutas principales y App Router
+│   ├── api/              # API Routes (Backend Next.js)
+│   │   └── proyectos/    # Endpoints GET, POST, PUT, DELETE
+│   ├── layout.tsx        # Root layout (Configuración global y providers)
+│   └── page.tsx          # Dashboard principal e integración de componentes
+├── components/           # Componentes UI (Botones, Tablas, Modales)
+│   ├── ui/               # Componentes base (Shadcn)
+│   └── Proyecto*.tsx     # Componentes de dominio funcional (Formularios, Tablas)
+├── lib/                  # Utilidades y configuración
+│   └── supabase/         # Clientes de Supabase para Servidor y Cliente
+├── docs/                 # Documentación técnica y scripts SQL
+└── public/               # Assets estáticos (favicon, imágenes)
 ```
 
-### 2. Instalar dependencias
+---
 
+## ⚙️ Variables de Entorno
+
+Para ejecutar este proyecto, necesitas configurar las siguientes variables de entorno. Crea un archivo llamado `.env.local` en la raíz del proyecto basado en el entorno de Supabase:
+
+```env
+# URL de tu proyecto en Supabase (Settings > API > Project URL)
+NEXT_PUBLIC_SUPABASE_URL=https://tu-id-de-proyecto.supabase.co
+
+# Clave pública anónima de tu proyecto (Settings > API > Project API Keys > anon public)
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key-aqui
+```
+
+---
+
+## 🚀 Instalación y Ejecución Local
+
+Utilizamos `pnpm` como gestor de paquetes principal debido a su velocidad y manejo eficiente de dependencias.
+
+### 1. Clonar y preparar el entorno
 ```bash
+# 1. Clona el repositorio
+git clone https://github.com/TU-USUARIO/gestion-ingreso.git
+cd gestion-ingreso
+
+# 2. Instala las dependencias con pnpm
 pnpm install
 ```
 
-### 3. Configurar variables de entorno
+### 2. Configurar Base de Datos (Supabase)
+Dirígete a tu panel de Supabase, abre el **SQL Editor** y ejecuta el esquema que se encuentra en `docs/schema.sql` (o crea la tabla `proyectos` según las especificaciones del documento). 
 
-Crea el archivo `.env.local` en la raíz del proyecto:
-
+### 3. Ejecutar en Desarrollo
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=https://TU-PROYECTO.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=TU-ANON-KEY-AQUI
-```
-
-Para obtener estos valores:
-1. Crear un proyecto en [Supabase](https://supabase.com)
-2. Ir a **Settings > API**
-3. Copiar la **Project URL** y la **anon public** key
-
-### 4. Crear la base de datos
-
-En el panel de Supabase, ir a **SQL Editor** y ejecutar el contenido de `docs/schema.sql`.
-
-### 5. Ejecutar el proyecto
-
-```bash
+# Inicia el servidor de desarrollo en http://localhost:3000
 pnpm dev
 ```
 
-La aplicación estará disponible en `http://localhost:3000`.
+---
 
-## Funcionalidades
+## ✅ Control de Calidad y Pruebas (Pre-Deploy)
 
-### CRUD de Proyectos
+Antes de hacer deploy a Vercel, asegúrate de correr las siguientes pruebas:
 
-| Operación | Descripción |
-|-----------|-------------|
-| **Crear** | Registrar un nuevo proyecto con nombre, descripción, fecha de inicio y estado |
-| **Leer** | Listar todos los proyectos registrados en una tabla |
-| **Actualizar** | Editar los datos de un proyecto existente |
-| **Eliminar** | Borrar un proyecto del sistema |
+1. **Build Local en Limpio:**
+   ```bash
+   pnpm build
+   ```
+   *Esto detectará errores comunes de TypeScript o problemas en las dependencias antes del deploy.*
 
-### Estados de Proyecto
+2. **Pruebas de API (con cURL o Thunder Client):**
+   Asegúrate de que los endpoints en `/api/proyectos` responden correctamente (GET y POST) validando los datos con Zod y comprobando las políticas RLS en Supabase.
 
-- **Pendiente**: Proyecto registrado pero aún no iniciado
-- **En Progreso**: Proyecto en ejecución
-- **Completado**: Proyecto finalizado
-- **Cancelado**: Proyecto cancelado
+3. **Linting de Código:**
+   ```bash
+   pnpm lint
+   ```
 
-## Esquema de Base de Datos
+---
 
-```sql
-CREATE TABLE proyectos (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  nombre VARCHAR(200) NOT NULL,
-  descripcion TEXT,
-  fecha_inicio DATE NOT NULL DEFAULT CURRENT_DATE,
-  estado VARCHAR(20) NOT NULL DEFAULT 'Pendiente'
-    CHECK (estado IN ('Pendiente', 'En Progreso', 'Completado', 'Cancelado')),
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-```
+## 🚀 Deploy a Producción
 
-Ver esquema completo en `docs/schema.sql`.
+El proyecto está listo para ser desplegado fácilmente en **Vercel**:
 
-## Estructura del Proyecto
-
-```
-gestion-ingreso/
-├── app/
-│   ├── api/
-│   │   └── proyectos/
-│   │       ├── route.ts          # GET, POST
-│   │       └── [id]/
-│   │           └── route.ts      # PUT, DELETE
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx                  # Interfaz principal
-├── lib/
-│   └── supabase/
-│       ├── client.ts             # Cliente navegador
-│       └── server.ts             # Cliente servidor
-├── docs/
-│   ├── schema.sql                # Esquema de BD
-│   └── README.md                 # Esta documentación
-└── .env.local                    # Variables de entorno
-```
-
-## API Endpoints
-
-| Método | Ruta | Descripción |
-|--------|------|-------------|
-| GET | `/api/proyectos` | Listar todos los proyectos |
-| POST | `/api/proyectos` | Crear un proyecto |
-| PUT | `/api/proyectos/:id` | Actualizar un proyecto |
-| DELETE | `/api/proyectos/:id` | Eliminar un proyecto |
-
-### Ejemplo POST
-
-```json
-{
-  "nombre": "Edificio Centro",
-  "descripcion": "Construcción de edificio residencial",
-  "fecha_inicio": "2025-01-15",
-  "estado": "En Progreso"
-}
-```
-
-## Deploy
-
-### Vercel (Recomendado)
-
-1. Subir el código a GitHub
-2. Importar el proyecto en [Vercel](https://vercel.com)
-3. Configurar las variables de entorno
-4. Deploy automático
-
-```bash
-pnpm build
-```
-
-## Capturas de Pantalla
-
-<!-- Agregar capturas aquí -->
-
-### Vista Principal
-![Vista Principal](screenshots/principal.png)
-
-### Formulario de Proyecto
-![Formulario](screenshots/formulario.png)
-
-## Licencia
-
-Proyecto académico - Universidad [Nombre]
+1. Sube tu código al repositorio en GitHub.
+2. Crea un nuevo proyecto en Vercel e importa el repositorio.
+3. En la sección **Environment Variables**, añade `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+4. Haz clic en **Deploy**. El comando de build que usará por defecto será `next build`.
