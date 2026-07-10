@@ -4,9 +4,20 @@ import { proyectoSchema } from "@/lib/schemas/proyecto";
 
 export async function GET() {
   const supabase = await createClient();
+
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    return NextResponse.json({ error: "No autenticado" }, { status: 401 });
+  }
+
   const { data, error } = await supabase
     .from("proyectos")
     .select("*")
+    .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -17,6 +28,16 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const supabase = await createClient();
+
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    return NextResponse.json({ error: "No autenticado" }, { status: 401 });
+  }
+
   const body = await request.json();
 
   const parsed = proyectoSchema.safeParse(body);
@@ -29,7 +50,7 @@ export async function POST(request: Request) {
 
   const { data, error } = await supabase
     .from("proyectos")
-    .insert(parsed.data)
+    .insert({ ...parsed.data, user_id: user.id })
     .select()
     .single();
 

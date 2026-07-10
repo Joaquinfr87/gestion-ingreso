@@ -71,10 +71,10 @@ gestion-ingreso/
 
 | # | Tarea | Archivo | Estado |
 |---|-------|---------|--------|
-| 1 | Configurar proyecto Supabase y obtener credenciales | `.env.local` | ⬜ |
-| 2 | Ejecutar SQL de esquema en Supabase Dashboard | `docs/schema.sql` | ⬜ |
-| 3 | Verificar que las API routes funcionan con Supabase | `app/api/proyectos/route.ts` | ⬜ |
-| 4 | Agregar validación con zod en todos los endpoints | `app/api/` | ⬜ |
+| 1 | Configurar proyecto Supabase y obtener credenciales | `.env.local` | ✅ |
+| 2 | Ejecutar SQL de esquema en Supabase Dashboard | `docs/schema.sql` | ✅ |
+| 3 | Verificar que las API routes funcionan con Supabase | `app/api/proyectos/route.ts` | ✅ |
+| 4 | Agregar validación con zod en todos los endpoints | `app/api/` | ✅ |
 | 5 | Configurar Row Level Security (RLS) en Supabase | Supabase Dashboard | ⬜ |
 | 6 | Probar endpoints con curl o Thunder Client | Terminal | ⬜ |
 

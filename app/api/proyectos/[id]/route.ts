@@ -7,6 +7,16 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const supabase = await createClient();
+
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    return NextResponse.json({ error: "No autenticado" }, { status: 401 });
+  }
+
   const { id } = await params;
   const body = await request.json();
 
@@ -22,6 +32,7 @@ export async function PUT(
     .from("proyectos")
     .update(parsed.data)
     .eq("id", id)
+    .eq("user_id", user.id)
     .select()
     .single();
 
@@ -36,9 +47,23 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const supabase = await createClient();
+
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    return NextResponse.json({ error: "No autenticado" }, { status: 401 });
+  }
+
   const { id } = await params;
 
-  const { error } = await supabase.from("proyectos").delete().eq("id", id);
+  const { error } = await supabase
+    .from("proyectos")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", user.id);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
