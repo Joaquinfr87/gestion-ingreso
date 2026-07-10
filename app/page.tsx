@@ -9,9 +9,11 @@ import { ProyectoDialog } from "@/components/proyecto-dialog"
 import { ProyectoDeleteDialog } from "@/components/proyecto-delete-dialog"
 import { type Proyecto } from "@/lib/types/proyecto"
 import { type ProyectoInput } from "@/lib/schemas/proyecto"
-import { Plus, Building2 } from "lucide-react"
+import { useTheme } from "next-themes"
+import { Plus, Building2, Sun, Moon } from "lucide-react"
 
 export default function Home() {
+  const { theme, setTheme } = useTheme()
   const [proyectos, setProyectos] = useState<Proyecto[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -142,10 +144,23 @@ export default function Home() {
             </div>
           </div>
 
-          <Button onClick={handleCreate} size="sm" className="gap-1.5">
-            <Plus className="size-4" />
-            <span className="hidden sm:inline">Nuevo Proyecto</span>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              <Sun className="size-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Cambiar tema</span>
+            </Button>
+
+            <Button onClick={handleCreate} size="sm" className="gap-1.5">
+              <Plus className="size-4" />
+              <span className="hidden sm:inline">Nuevo Proyecto</span>
+            </Button>
+          </div>
         </div>
       </header>
 
